@@ -69,6 +69,11 @@ def list_minus(inner_data, i1, i2):
 
 
 def list_comp(input_path):
+    """
+    removing not optimal paths
+    :param input_path: paths list
+    :return: clear paths list
+    """
     out_path = list(input_path)
     for path1_ind in range(0, len(out_path)):
         for path2_ind in range(0, len(out_path)):
@@ -84,17 +89,27 @@ def list_comp(input_path):
 
 
 def calc_oriented_time(path):
+    """
+    Oriented time calculation.
+    Deprecated
+    :param path: ideal path
+    :return: time * 1.5
+    """
     time = TIME_FOR_RUN_UP
     for i in range(0, len(path) - 1):
         way_type = calc_way_type(path[i], path[i + 1])
         if way_type == 0:
             time += MIN_SUBTRAIN_WAITING
         time += int(path_graf[path[i]]['links'][path[i + 1]])
-    # print(time * 1.5)
     return time * 1.5
 
 
 def calc_time(dataset):
+    """
+    Timing calculation
+    :param dataset: paths lists
+    :return: dict with paths for jsonify
+    """
     full_dict = {}
     ind = 0
     for line in dataset:
@@ -117,7 +132,6 @@ def calc_time(dataset):
                         'type': way_types[str(way_type)],
                         'src': path_graf[line[i]]['name'],
                         'dest': path_graf[line[i + 1]]['name'],
-                        # 'time': parsed[p]['wtm'],
                         'dep': parsed[p]['dep'].time()
                     }
                 }
@@ -135,6 +149,7 @@ def calc_time(dataset):
         full_dict.update({ind: path_dict})
         ind += 1
     return full_dict
+
 
 def calc_way_type(point1, point2):
     """
