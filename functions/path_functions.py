@@ -1,4 +1,7 @@
 import json
+from datetime import datetime, timedelta
+from functions.yandex_functions import getapi, parse_response
+from configs.backend_settings import TIME_FOR_RUN_UP, MIN_SUBTRAIN_WAITING
 
 # path graf init
 with open('data/paths.json') as json_data:
@@ -80,21 +83,58 @@ def list_comp(input_path):
     return out_path
 
 
+def calc_oriented_time(path):
+    time = TIME_FOR_RUN_UP
+    for i in range(0, len(path) - 1):
+        way_type = calc_way_type(path[i], path[i + 1])
+        if way_type == 0:
+            time += MIN_SUBTRAIN_WAITING
+        time += int(path_graf[path[i]]['links'][path[i + 1]])
+    # print(time * 1.5)
+    return time * 1.5
+
+
 def calc_time(dataset):
+    full_dict = {}
+    ind = 0
     for line in dataset:
-        time = 0
+        path_dict = {}
+        time = TIME_FOR_RUN_UP
         for i in range(0, len(line) - 1):
-            time += int(path_graf[line[i]]['links'][line[i + 1]])
             way_type = calc_way_type(line[i], line[i+1])
-            # if way_type == 0:
+            time_for_location = datetime.now() + timedelta(minutes=time)
+            if way_type == 0:
+                response = getapi(path_graf[line[i]]['code'], path_graf[line[i+1]]['code'])
+                parsed = parse_response(response)
+                p = 0
+                while parsed[p]['dep'] < (time_for_location + timedelta(minutes=MIN_SUBTRAIN_WAITING)):
+                    p += 1
+                waiting_time = (parsed[p]['dep'] - time_for_location).seconds//60
+                time += waiting_time
+                time += parsed[p]['wtm']
+                step_dict = {
+                    i: {
+                        'type': way_types[str(way_type)],
+                        'src': path_graf[line[i]]['name'],
+                        'dest': path_graf[line[i + 1]]['name'],
+                        # 'time': parsed[p]['wtm'],
+                        'dep': parsed[p]['dep'].time()
+                    }
+                }
+            else:
+                time += int(path_graf[line[i]]['links'][line[i + 1]])
+                step_dict = {
+                    i: {
+                        'type': way_types[str(way_type)],
+                        'src': path_graf[line[i]]['name'],
+                        'dest': path_graf[line[i + 1]]['name'],
 
-            print('{} from {} to {}, {} minutes'.format(way_types[str(way_type)],
-                                                        path_graf[line[i]]['name'],
-                                                        path_graf[line[i + 1]]['name'],
-                                                        path_graf[line[i]]['links'][line[i + 1]]))
-        print(time, 'min')
-        print('========================')
-
+                    }
+                }
+            path_dict.update(step_dict)
+        full_dict.update({ind: path_dict})
+        ind += 1
+    return full_dict
 
 def calc_way_type(point1, point2):
     """

@@ -1,7 +1,7 @@
 from datetime import datetime
 from requests import get
 from functions.other_functions import str_to_datetime
-from configs.defaults import yandex_api_key
+from configs.backend_settings import yandex_api_key
 
 
 def getapi(start, finish):
@@ -12,6 +12,7 @@ def getapi(start, finish):
                   'limit=255&date={}'.format(start, finish, yandex_api_key, actual_date)
     response = get(api_request).json()
     query.append(response)
+    print(query)
     return query
 
 
@@ -24,8 +25,8 @@ def parse_response(yandex_api_response):
             source, departure = y['from']['title'], y['departure']
             destination, arrival = y['to']['title'], y['arrival']
             stdplus = y['thread']['transport_subtype']['code']
-            waytime = (str_to_datetime(arrival) - str_to_datetime(departure))
-            subtrain_data = {subtrain_index: {'src': source, 'dep': departure, 'dst': str_to_datetime(departure),
+            waytime = (str_to_datetime(arrival) - str_to_datetime(departure)).seconds//60
+            subtrain_data = {subtrain_index: {'src': source, 'dep': str_to_datetime(departure), 'dst': destination,
                                                'arv': str_to_datetime(arrival), 'pls': stdplus, 'wtm': waytime}}
             str_to_datetime(departure)
             if actualdatetime < departure:

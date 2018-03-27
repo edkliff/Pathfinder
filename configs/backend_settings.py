@@ -1,0 +1,6 @@
+START_POINT = '11'
+FINISH_POINT = '12'
+TIME_FOR_RUN_UP = 10
+MIN_SUBTRAIN_WAITING = 7
+
+yandex_api_key = 'yandex_key'
