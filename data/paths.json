@@ -1,0 +1,145 @@
+{
+  "0": {
+    "name": "Setun",
+    "type": "subtrain",
+    "code": "s9600941",
+    "links": {
+      "1": 22,
+      "2": 29,
+      "3": 29,
+      "4": 40,
+      "12": 7
+    }
+  },
+  "1": {
+    "name": "Moscow-Belorusskaya",
+    "type": "subtrain",
+    "code": "s2000006",
+    "links": {
+      "0": 22,
+      "5": 10
+    }
+  },
+  "2": {
+    "name": "Moskow-Savelovskaya",
+    "type": "subtrain",
+    "code": "s2000009",
+    "links": {
+      "0": 29,
+      "9": 5
+    }
+  },
+  "3": {
+    "name": "Savelovskaya",
+    "type": "subtrain",
+    "code": "s9601382",
+    "links": {
+      "0": 29,
+      "9": 5
+    }
+  },
+  "4": {
+    "name": "Timiryazevskaya",
+    "type": "subtrain",
+    "links": {
+      "0": 40,
+      "11": 30
+    }
+  },
+  "5": {
+    "name": "Belorusskaya",
+    "type": "subway",
+    "links": {
+      "1": 10,
+      "6": 2,
+      "7": 8,
+      "15": 8
+    }
+  },
+  "6": {
+    "name": "Novoslobodskaya",
+    "type": "subway",
+    "links": {
+      "5": 2,
+      "7": 5,
+      "8": 3,
+      "15": 11
+    }
+  },
+  "7": {
+    "name": "Komsomolskaya",
+    "type": "subway",
+    "links": {
+      "5": 8,
+      "6": 5,
+      "13": 7,
+      "15": 14
+    }
+  },
+  "8": {
+    "name": "Mendeleevskaya",
+    "type": "subway",
+    "links": {
+      "6": 3,
+      "10": 4
+    }
+  },
+  "9": {
+    "name": "Savelovskaya Metro",
+    "type": "subway",
+    "links": {
+      "8": 2,
+      "3": 5,
+      "2": 5,
+      "10": 3
+    }
+  },
+  "10": {
+    "name": "Dmitrovskaya",
+    "type": "subway",
+    "links": {
+      "8": 4,
+      "9": 3,
+      "11": 20
+    }
+  },
+  "11": {
+    "name": "Home",
+    "type": "walk",
+    "links": {
+      "10": 20,
+      "4": 30
+    }
+  },
+  "12": {
+    "name": "Work",
+    "type": "walk",
+    "links": {
+      "0": 7
+    }
+  },
+  "13": {
+    "name": "Moscow-Leningradskaya",
+    "type": "subtrain",
+    "links": {
+      "7": 15,
+      "14": 120
+    }
+  },
+  "14": {
+    "name": "Tver",
+    "type": "subtrain",
+    "links": {
+      "13": 120
+    }
+  },
+  "15": {
+    "name": "Park Kulturi",
+    "type": "subway",
+    "links": {
+      "7": 14,
+      "5": 8,
+      "6": 11
+    }
+  }
+}
