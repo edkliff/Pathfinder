@@ -1,14 +1,11 @@
 import json
-from datetime import datetime
-start_time = datetime.now()
+
+
 with open('data/paths.json') as json_data:
     graf = json.load(json_data)
 
 with open('data/way_types.json') as json_data:
     way_types = json.load(json_data)
-
-START_POINT = '12'
-FINISH_POINT = '11'
 
 
 def find_all_pathes(start, finish, path_index, good_pathes, pathes):
@@ -35,7 +32,7 @@ def find_all_pathes(start, finish, path_index, good_pathes, pathes):
 
 def pathfinder(start_point, finish_point):
     gp = []
-    p = [[START_POINT], ]
+    p = [[start_point], ]
     find_all_pathes(start_point, finish_point, 0, gp, p)
     return gp
 
@@ -96,7 +93,3 @@ def calc_way_type(point1, point2):
     return 2
 
 
-data = pathfinder(START_POINT, FINISH_POINT)
-ways = list_comp(data)
-calc_time(ways)
-print(datetime.now() - start_time)

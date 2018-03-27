@@ -1,8 +1,7 @@
 from datetime import datetime
 from requests import get
-from other_functions import datetime_to_str, str_to_datetime
-
-Yandex_API_Key = 'insert key'
+from functions.other_functions import str_to_datetime
+from configs.defaults import yandex_api_key
 
 
 def getapi(start, finish):
@@ -10,7 +9,7 @@ def getapi(start, finish):
     query = []
     api_request = 'https://api.rasp.yandex.net/v3.0/search/?from={}' \
                   '&to={}&format=json&lang=en_RU&apikey={}&transport_types=suburban&' \
-                  'limit=255&date={}'.format(start, finish, Yandex_API_Key, actual_date)
+                  'limit=255&date={}'.format(start, finish, yandex_api_key, actual_date)
     response = get(api_request).json()
     query.append(response)
     return query
