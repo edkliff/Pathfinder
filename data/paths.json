@@ -122,6 +122,7 @@
   "13": {
     "name": "Moscow-Leningradskaya",
     "type": "subtrain",
+    "code": "s2006004",
     "links": {
       "7": 15,
       "14": 120
@@ -130,6 +131,7 @@
   "14": {
     "name": "Tver",
     "type": "subtrain",
+    "code": "s9603093",
     "links": {
       "13": 120
     }
