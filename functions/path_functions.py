@@ -110,8 +110,8 @@ def calc_time(dataset):
     :param dataset: paths lists
     :return: dict with paths for jsonify
     """
-    full_dict = {}
-    ind = 0
+    full_dict = {0: 200}
+    ind = 1
     for line in dataset:
         path_dict = {}
         time = TIME_FOR_RUN_UP
@@ -127,12 +127,13 @@ def calc_time(dataset):
                 waiting_time = (parsed[p]['dep'] - time_for_location).seconds//60
                 time += waiting_time
                 time += parsed[p]['wtm']
+                depat = str(parsed[p]['dep'].time())
                 step_dict = {
                     i: {
                         'type': way_types[str(way_type)],
                         'src': path_graf[line[i]]['name'],
                         'dest': path_graf[line[i + 1]]['name'],
-                        'dep': parsed[p]['dep'].time()
+                        'dep': depat
                     }
                 }
             else:

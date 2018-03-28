@@ -18,7 +18,6 @@ def getapi(start, finish):
                   'limit=255&date={}'.format(start, finish, yandex_api_key, actual_date)
     response = get(api_request).json()
     query.append(response)
-    print(query)
     return query
 
 
